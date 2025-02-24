@@ -1,21 +1,12 @@
 steps:
-  # Docker Build Step
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '-t',
-      'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}',
-      '.'
-    ]
+    args: ['build', '-t', 
+           'us-central1-docker.pkg.dev/semester-2-408906/siddharth-100942768/assignment2:${SHORT_SHA}', '.']
 
-  # Docker Push Step
   - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'push',
-      'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}'
-    ]
+    args: ['push', 
+           'us-central1-docker.pkg.dev/semester-2-408906/siddharth-100942768/assignment2:${SHORT_SHA}']
 
-  # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -23,15 +14,13 @@ steps:
       - 'deploy'
       - 'assignment2'
       - '--image'
-      - 'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}'
+      - 'us-central1-docker.pkg.dev/semester-2-408906/siddharth-100942768/assignment2:${SHORT_SHA}'
       - '--region'
       - 'us-central1'
-      - '--platform'
-      - 'managed'
-      - '--allow-unauthenticated'  # Allows public access to Cloud Run service
 
 images:
-  - 'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}'
+  - 'us-central1-docker.pkg.dev/semester-2-408906/siddharth-100942768/assignment2:${SHORT_SHA}'
+
 
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
