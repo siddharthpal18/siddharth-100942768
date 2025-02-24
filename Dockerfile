@@ -1,17 +1,25 @@
-# Use an official Node.js runtime as the base image
+# Use official Node.js image
 FROM node:16
 
-# Set the working directory in the container
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package.json .
+# Copy package.json and package-lock.json first
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy the application files
+# Copy all project files
 COPY . .
 
-# Expose port 8080
+# Change to src directory where index.js exists
+WORKDIR /app/src
+
+# List files inside /app/src to verify index.js is present
+RUN ls -l /app/src
+
+# Expose port 8080 for Cloud Run
 EXPOSE 8080
 
 # Start the application
